@@ -30,7 +30,6 @@ public class RoleController {
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
-
     @GetMapping
     public ResponseEntity<ApiResponse<List<RoleDTO>>> getAllRoles() {
         List<RoleDTO> roleList = roleService.getAllRoles();
