@@ -45,3 +45,5 @@ logs/
 *.classpath
 *.project
 target/
+
+uploads/
