@@ -31,3 +31,17 @@ build/
 
 ### VS Code ###
 .vscode/
+
+# Logs
+logs/
+*.log
+
+# Compiled Java classes
+*.class
+
+# IntelliJ / Eclipse files (optional)
+.idea/
+*.iml
+*.classpath
+*.project
+target/
