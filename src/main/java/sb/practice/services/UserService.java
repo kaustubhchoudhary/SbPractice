@@ -126,4 +126,17 @@ public class UserService {
                 .orElseThrow(() -> new NoSuchElementException("Cannot delete. User not found with ID: " + userId));
         userRepository.delete(user);
     }
+
+    // Bulk add users
+    public List<UserResponseDTO> addUsersBulk(List<UserRegistrationDTO> users) {
+        List<UserResponseDTO> savedUsers = new ArrayList<>();
+
+        for (UserRegistrationDTO dto : users) {
+            // Reuse existing method
+            UserResponseDTO savedUser = registerUser(dto);
+            savedUsers.add(savedUser);
+        }
+
+        return savedUsers;
+    }
 }

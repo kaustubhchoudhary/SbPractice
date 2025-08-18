@@ -12,7 +12,8 @@ import java.time.LocalDateTime;
 public class UserMapper {
 
     // Convert UserRegistrationDTO to User entity (for new registration)
-    public static User toEntity(UserRegistrationDTO dto, Role role, String passwordSalt, String passwordHash) {
+    public static User toEntity(UserRegistrationDTO dto, Role role,
+                                String passwordSalt, String passwordHash) {
         User user = new User();
         user.setFullName(dto.getFullName());
         user.setDateOfBirth(dto.getDateOfBirth());
@@ -24,7 +25,11 @@ public class UserMapper {
         user.setRole(role);
         user.setCreatedAt(LocalDateTime.now());
         user.setUpdatedAt(LocalDateTime.now());
-        user.setAuthStatus(true);  // default unverified
+
+        // only super admin is by default authorized
+        int roleId = role.getRoleId();
+        user.setAuthStatus(roleId == 1);
+
         return user;
     }
 
@@ -54,6 +59,4 @@ public class UserMapper {
                 user.getIdDocs()
         );
     }
-
-
 }

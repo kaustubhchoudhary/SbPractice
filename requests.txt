@@ -1,0 +1,155 @@
+Requests Data:
+
+Add Roles:
+
+{
+    "roleName": "Admin"
+}
+
+{
+    "roleName": "SubAdmin"
+}
+
+{
+    "roleName": "Candidate"
+}
+
+{
+    "roleName": "Voter"
+}
+
+Add Users: One Admin, 2 SubAdmins, 3 Candidates, 5 Voters
+
+[
+  {
+    "fullName": "Kaustubh Choudhary",
+    "dateOfBirth": "1980-08-18",
+    "gender": "M",
+    "username": "admin01",
+    "password": "admin123",
+    "emailId": "admin01@example.com",
+    "roleId": 1
+  },
+  {
+    "fullName": "Ravi Mehra",
+    "dateOfBirth": "1990-01-10",
+    "gender": "M",
+    "username": "subadmin01",
+    "password": "subadmin123",
+    "emailId": "subadmin01@example.com",
+    "roleId": 2
+  },
+  {
+    "fullName": "Sunita Sharma",
+    "dateOfBirth": "1992-03-25",
+    "gender": "F",
+    "username": "subadmin02",
+    "password": "subadmin456",
+    "emailId": "subadmin02@example.com",
+    "roleId": 2
+  },
+  {
+    "fullName": "Rajesh Kumar",
+    "dateOfBirth": "1995-05-12",
+    "gender": "M",
+    "username": "candidate01",
+    "password": "candidate123",
+    "emailId": "candidate01@example.com",
+    "roleId": 3
+  },
+  {
+    "fullName": "Priya Singh",
+    "dateOfBirth": "1996-07-18",
+    "gender": "F",
+    "username": "candidate02",
+    "password": "candidate456",
+    "emailId": "candidate02@example.com",
+    "roleId": 3
+  },
+  {
+    "fullName": "Aman Verma",
+    "dateOfBirth": "1994-02-22",
+    "gender": "M",
+    "username": "candidate03",
+    "password": "candidate789",
+    "emailId": "candidate03@example.com",
+    "roleId": 3
+  },
+  {
+    "fullName": "Anjali Mehta",
+    "dateOfBirth": "1998-09-10",
+    "gender": "F",
+    "username": "voter01",
+    "password": "voter123",
+    "emailId": "voter01@example.com",
+    "roleId": 4
+  },
+  {
+    "fullName": "Vikram Joshi",
+    "dateOfBirth": "1997-04-15",
+    "gender": "M",
+    "username": "voter02",
+    "password": "voter456",
+    "emailId": "voter02@example.com",
+    "roleId": 4
+  },
+  {
+    "fullName": "Ritu Gupta",
+    "dateOfBirth": "1999-12-05",
+    "gender": "F",
+    "username": "voter03",
+    "password": "voter789",
+    "emailId": "voter03@example.com",
+    "roleId": 4
+  },
+  {
+    "fullName": "Karan Malhotra",
+    "dateOfBirth": "1995-11-30",
+    "gender": "M",
+    "username": "voter04",
+    "password": "voter101",
+    "emailId": "voter04@example.com",
+    "roleId": 4
+  },
+  {
+    "fullName": "Neha Kapoor",
+    "dateOfBirth": "2000-06-18",
+    "gender": "F",
+    "username": "voter05",
+    "password": "voter202",
+    "emailId": "voter05@example.com",
+    "roleId": 4
+  }
+]
+
+Parties
+
+2 parties via Body => form-data
+
+Candidate-Party Assignment
+
+{
+    "candidateUserId": 4,
+    "partyId": 1
+}
+
+{
+    "candidateUserId": 5,
+    "partyId": 2
+}
+
+{
+    "candidateUserId": 6,
+    "partyId": 1
+}
+
+
+
+
+
+
+
+
+
+
+

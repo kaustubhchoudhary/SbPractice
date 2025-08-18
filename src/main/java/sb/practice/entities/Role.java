@@ -1,15 +1,14 @@
 package sb.practice.entities;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.List;
 
 @Entity
 @Table(name = "roles")
-@Data
+@Setter
+@Getter
 @NoArgsConstructor
 @AllArgsConstructor
 public class Role {
@@ -22,10 +21,6 @@ public class Role {
     @Column(name = "role_name", nullable = false, unique = true, length = 50)
     private String roleName;
 
-    // One Role can be assigned to multiple Users
-    // remove cascade = CascadeType.ALL, orphanRemoval = true
     @OneToMany(mappedBy = "role",  fetch = FetchType.LAZY)
     private List<User> users;
-
 }
-
