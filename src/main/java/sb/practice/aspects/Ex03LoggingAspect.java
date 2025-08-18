@@ -9,8 +9,8 @@ import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
 
-@Aspect
-@Component
+//@Aspect
+//@Component
 //@Order(3)
 public class Ex03LoggingAspect { // In your project, name it ProjectLoggingAspect
 

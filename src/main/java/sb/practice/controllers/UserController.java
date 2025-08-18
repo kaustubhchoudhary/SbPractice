@@ -36,7 +36,7 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
-    @PutMapping("/{userId}/profile")
+    @PutMapping("/{userId}")
     public ResponseEntity<ApiResponse<UserProfileResponseDTO>> updateUserProfile(
             @PathVariable int userId,
             @ModelAttribute UserProfileDTO userProfileDTO) {
@@ -64,5 +64,20 @@ public class UserController {
     public ResponseEntity<ApiResponse<Void>> deleteUser(@PathVariable int userId) {
         userService.deleteUserById(userId);
         return ResponseEntity.ok(new ApiResponse<>(200, "User deleted successfully", null));
+    }
+
+    @PostMapping("/bulk")
+    public ResponseEntity<ApiResponse<List<UserResponseDTO>>> addUsersBulk(
+            @RequestBody List<UserRegistrationDTO> users) {
+
+        List<UserResponseDTO> savedUsers = userService.addUsersBulk(users);
+
+        ApiResponse<List<UserResponseDTO>> response = new ApiResponse<>(
+                HttpStatus.CREATED.value(),
+                "Users added successfully",
+                savedUsers
+        );
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 }
