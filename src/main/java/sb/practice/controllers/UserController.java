@@ -51,13 +51,17 @@ public class UserController {
     @GetMapping("/{userId}")
     public ResponseEntity<ApiResponse<User>> getUser(@PathVariable int userId) {
         User user = userService.getUserById(userId);
-        return ResponseEntity.ok(new ApiResponse<>(200, "User retrieved successfully", user));
+        return ResponseEntity.ok(new ApiResponse<>(200,
+                "User retrieved successfully",
+                user));
     }
 
     @GetMapping
     public ResponseEntity<ApiResponse<List<User>>> getAllUsers() {
         List<User> users = userService.getAllUsers();
-        return ResponseEntity.ok(new ApiResponse<>(200, "All users retrieved successfully", users));
+        return ResponseEntity.ok(new ApiResponse<>(200,
+                "All users retrieved successfully",
+                users));
     }
 
     @DeleteMapping("/{userId}")
