@@ -1,5 +1,6 @@
 package sb.practice.controllers;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/users")
+@Tag(name = "Users", description = "APIs for managing users in the system")
 public class UserController {
 
     private static final Logger logger = LoggerFactory.getLogger(UserController.class);
@@ -23,11 +25,11 @@ public class UserController {
 
     // Register User
     @PostMapping
-    public ResponseEntity<ApiResponse<UserResponseDTO>> registerUser(@RequestBody UserRegistrationDTO userDTO) {
+    public ResponseEntity<ApiResponseDTO<UserResponseDTO>> registerUser(@RequestBody UserRegistrationDTO userDTO) {
 
         UserResponseDTO savedUser = userService.registerUser(userDTO);
 
-        ApiResponse<UserResponseDTO> response = new ApiResponse<>(
+        ApiResponseDTO<UserResponseDTO> response = new ApiResponseDTO<>(
                 201,
                 "User registered successfully",
                 savedUser
@@ -37,46 +39,46 @@ public class UserController {
     }
 
     @PutMapping("/{userId}")
-    public ResponseEntity<ApiResponse<UserProfileResponseDTO>> updateUserProfile(
+    public ResponseEntity<ApiResponseDTO<UserProfileResponseDTO>> updateUserProfile(
             @PathVariable int userId,
             @ModelAttribute UserProfileDTO userProfileDTO) {
 
         UserProfileResponseDTO updatedProfile = userService.updateUserProfile(userId, userProfileDTO);
-        ApiResponse<UserProfileResponseDTO> response =
-                new ApiResponse<>(200, "Profile updated successfully", updatedProfile);
+        ApiResponseDTO<UserProfileResponseDTO> response =
+                new ApiResponseDTO<>(200, "Profile updated successfully", updatedProfile);
 
         return ResponseEntity.ok(response);
     }
 
     @GetMapping("/{userId}")
-    public ResponseEntity<ApiResponse<User>> getUser(@PathVariable int userId) {
+    public ResponseEntity<ApiResponseDTO<User>> getUser(@PathVariable int userId) {
         User user = userService.getUserById(userId);
-        return ResponseEntity.ok(new ApiResponse<>(200,
+        return ResponseEntity.ok(new ApiResponseDTO<>(200,
                 "User retrieved successfully",
                 user));
     }
 
     @GetMapping
-    public ResponseEntity<ApiResponse<List<User>>> getAllUsers() {
+    public ResponseEntity<ApiResponseDTO<List<User>>> getAllUsers() {
         List<User> users = userService.getAllUsers();
-        return ResponseEntity.ok(new ApiResponse<>(200,
+        return ResponseEntity.ok(new ApiResponseDTO<>(200,
                 "All users retrieved successfully",
                 users));
     }
 
     @DeleteMapping("/{userId}")
-    public ResponseEntity<ApiResponse<Void>> deleteUser(@PathVariable int userId) {
+    public ResponseEntity<ApiResponseDTO<Void>> deleteUser(@PathVariable int userId) {
         userService.deleteUserById(userId);
-        return ResponseEntity.ok(new ApiResponse<>(200, "User deleted successfully", null));
+        return ResponseEntity.ok(new ApiResponseDTO<>(200, "User deleted successfully", null));
     }
 
     @PostMapping("/bulk")
-    public ResponseEntity<ApiResponse<List<UserResponseDTO>>> addUsersBulk(
+    public ResponseEntity<ApiResponseDTO<List<UserResponseDTO>>> addUsersBulk(
             @RequestBody List<UserRegistrationDTO> users) {
 
         List<UserResponseDTO> savedUsers = userService.addUsersBulk(users);
 
-        ApiResponse<List<UserResponseDTO>> response = new ApiResponse<>(
+        ApiResponseDTO<List<UserResponseDTO>> response = new ApiResponseDTO<>(
                 HttpStatus.CREATED.value(),
                 "Users added successfully",
                 savedUsers
