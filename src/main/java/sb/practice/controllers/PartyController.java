@@ -1,10 +1,11 @@
 package sb.practice.controllers;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import sb.practice.dto.ApiResponse;
+import sb.practice.dto.ApiResponseDTO;
 import sb.practice.dto.PartyDTO;
 import sb.practice.services.PartyService;
 
@@ -12,6 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/parties")
+@Tag(name = "Parties", description = "APIs for managing parties in the system")
 public class PartyController {
 
     @Autowired
@@ -19,10 +21,10 @@ public class PartyController {
 
     // Create Party
     @PostMapping
-    public ResponseEntity<ApiResponse<PartyDTO>> createParty(@ModelAttribute PartyDTO partyDTO) {
+    public ResponseEntity<ApiResponseDTO<PartyDTO>> createParty(@ModelAttribute PartyDTO partyDTO) {
         PartyDTO savedParty = partyService.addParty(partyDTO);
 
-        ApiResponse<PartyDTO> response = new ApiResponse<>(
+        ApiResponseDTO<PartyDTO> response = new ApiResponseDTO<>(
                 HttpStatus.CREATED.value(),
                 "Party created successfully",
                 savedParty
@@ -33,13 +35,13 @@ public class PartyController {
 
     // Update Party
     @PutMapping("/{id}")
-    public ResponseEntity<ApiResponse<PartyDTO>> updateParty(
+    public ResponseEntity<ApiResponseDTO<PartyDTO>> updateParty(
             @PathVariable int id,
             @ModelAttribute PartyDTO partyDTO) {
 
         PartyDTO updatedParty = partyService.updateParty(id, partyDTO);
 
-        ApiResponse<PartyDTO> response = new ApiResponse<>(
+        ApiResponseDTO<PartyDTO> response = new ApiResponseDTO<>(
                 HttpStatus.OK.value(),
                 "Party updated successfully",
                 updatedParty
@@ -50,10 +52,10 @@ public class PartyController {
 
     // Delete Party
     @DeleteMapping("/{id}")
-    public ResponseEntity<ApiResponse<Void>> deleteParty(@PathVariable int id) {
+    public ResponseEntity<ApiResponseDTO<Void>> deleteParty(@PathVariable int id) {
         partyService.deleteParty(id);
 
-        ApiResponse<Void> response = new ApiResponse<>(
+        ApiResponseDTO<Void> response = new ApiResponseDTO<>(
                 HttpStatus.OK.value(),
                 "Party deleted successfully",
                 null
@@ -64,10 +66,10 @@ public class PartyController {
 
     // Get Party by ID
     @GetMapping("/{id}")
-    public ResponseEntity<ApiResponse<PartyDTO>> getPartyById(@PathVariable int id) {
+    public ResponseEntity<ApiResponseDTO<PartyDTO>> getPartyById(@PathVariable int id) {
         PartyDTO party = partyService.getPartyById(id);
 
-        ApiResponse<PartyDTO> response = new ApiResponse<>(
+        ApiResponseDTO<PartyDTO> response = new ApiResponseDTO<>(
                 HttpStatus.OK.value(),
                 "Party retrieved successfully",
                 party
@@ -78,10 +80,10 @@ public class PartyController {
 
     // Get All Parties
     @GetMapping
-    public ResponseEntity<ApiResponse<List<PartyDTO>>> getAllParties() {
+    public ResponseEntity<ApiResponseDTO<List<PartyDTO>>> getAllParties() {
         List<PartyDTO> partyList = partyService.getAllParties();
 
-        ApiResponse<List<PartyDTO>> response = new ApiResponse<>(
+        ApiResponseDTO<List<PartyDTO>> response = new ApiResponseDTO<>(
                 HttpStatus.OK.value(),
                 "Parties retrieved successfully",
                 partyList
