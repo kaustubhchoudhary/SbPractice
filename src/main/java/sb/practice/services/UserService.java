@@ -26,6 +26,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.stream.Collectors;
 
 @Service
 public class UserService {
@@ -116,8 +117,24 @@ public class UserService {
     }
 
     // ✅ Get all users
-    public List<User> getAllUsers() {
-        return userRepository.findAll();
+    public List<UserResponseDTO> getAllUsers() {
+
+        List<User> listOfUsers = userRepository.findAll();
+
+        List<UserResponseDTO> userDTOList = listOfUsers.stream()
+                .map(user -> new UserResponseDTO(
+                        user.getFullName(),
+                        user.getDateOfBirth(),
+                        user.getGender(),
+                        user.getUsername(),
+                        user.getEmailId(),
+                        user.getPhoneNo(),
+                        user.getRole().getRoleName() // assuming Role has roleName
+                ))
+                .toList();
+
+
+        return userDTOList;
     }
 
     // ✅ Delete a user by ID
