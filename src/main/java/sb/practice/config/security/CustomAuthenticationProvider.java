@@ -9,10 +9,6 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.stereotype.Component;
 import sb.practice.utility.Utils;
 
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.util.Base64;
-
 @Component
 public class CustomAuthenticationProvider implements AuthenticationProvider {
 
@@ -40,7 +36,6 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
         String computedHash = Utils.generateHash(newPassword);
         System.err.println("\n computedHash : " + computedHash);
 
-
         if (!computedHash.equals(storedHash)) {
             throw new BadCredentialsException("Invalid username or password");
         }
@@ -49,17 +44,6 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
         return new UsernamePasswordAuthenticationToken(
                 userDetails, rawPassword, userDetails.getAuthorities()
         );
-    }
-
-    private String hashPassword(String password, String salt) {
-        try {
-            MessageDigest md = MessageDigest.getInstance("SHA-256");
-            String saltedPassword = salt + password;
-            byte[] hashBytes = md.digest(saltedPassword.getBytes());
-            return Base64.getEncoder().encodeToString(hashBytes); // Base64 to match stored hash
-        } catch (NoSuchAlgorithmException e) {
-            throw new RuntimeException("SHA-256 algorithm not found", e);
-        }
     }
 
     @Override

@@ -1,0 +1,116 @@
+In my project I have
+=> 4 entities: Role, User, Party and Candidate
+=> 4 Controllers: RoleController, UserController, PartyController and CandidateController
+=> 4 Services: RoleService, UserService, PartyService and CandidateService
+
+API End Points
+==============
+Roles Entity
+------------
+POST /api/roles
+
+GET /api/roles
+
+GET /api/roles/{id}
+
+PUT /api/roles/{id}
+
+DELETE /api/roles/{id}
+---X---X---X---
+User Entity
+------------
+POST /api/users
+
+PUT /api/users/{userId}
+
+GET /api/users/{userId}
+
+GET /api/users
+
+DELETE /api/users/{userId}
+
+POST /api/users/bulk
+---X---X---X---
+Party Entity
+------------
+POST /api/parties
+
+PUT /api/parties/{id}
+
+DELETE /api/parties/{id}
+
+GET /api/parties/{id}
+
+GET /api/parties
+---X---X---X---
+Candidate Entity
+----------------
+POST /api/candidates
+-----X-----X-----X-----
+Authorization Strategy
+======================
+
+🔑 Suggested Role-Based Access
+
+1. SuperAdmin
+
+=> Full power → can manage everything.
+=> But you mentioned earlier: SuperAdmin (Admin) cannot modify/delete Roles.
+
+✅ Allowed:
+
+=> Create, update, delete Users
+=> Create, update, delete Parties
+=> Assign Candidates
+=> View all entities (Roles, Users, Parties, Candidates)
+
+❌ Not Allowed:
+
+=> Update/Delete Roles
+
+---
+
+2. SubAdmin
+
+=> Limited power → can manage some entities but with restrictions.
+
+✅ Allowed:
+
+=> View all Roles (`GET /api/roles`, `GET /api/roles/{id}`)
+=> Add/Update Users only if role = Candidate or SubAdmin (say roleId = 3 or 4)
+=> Update Parties (but not delete)
+=> View all Users and Parties
+
+❌ Not Allowed:
+
+=> Delete Roles
+=> Delete Parties
+=> Add/Delete Candidates
+
+---
+
+3. Candidate
+
+=> Very restricted → can manage only their own profile.
+
+✅ Allowed:
+
+=> Update their own profile (`PUT /api/users/{userId}` with their ID)
+=> View their own profile (`GET /api/users/{userId}` with their ID)
+
+❌ Not Allowed:
+
+=> Create/Delete Users
+=> Manage Roles
+=> Manage Parties
+=> Assign Candidates
+
+---
+
+🎯 Access Control Summary
+
+=> SuperAdmin → Everything except delete/update Roles
+=> SubAdmin → Read Roles, limited User management, update Parties (no delete)
+=> Candidate → Only their own profile
+
+---
