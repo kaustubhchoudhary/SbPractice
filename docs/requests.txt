@@ -1,3 +1,8 @@
+salt: 59aNVyVeWI
+
+hash: d1aeeeba57eff730fe25f9ff9f4905ba5b43b0f6ca02b4a0836a138c579d17aa
+
+
 Requests Data:
 
 Add Roles:
