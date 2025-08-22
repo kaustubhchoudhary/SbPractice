@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>User Registration</title>
+</head>
+<body>
+<h2>User Registration</h2>
+
+<form id="userForm">
+    <label>Full Name: <input type="text" id="fullName" required></label><br><br>
+    <label>Date of Birth: <input type="date" id="dateOfBirth" required></label><br><br>
+    <label>Gender:
+        <select id="gender">
+            <option value="M">Male</option>
+            <option value="F">Female</option>
+        </select>
+    </label><br><br>
+    <label>Username: <input type="text" id="username" required></label><br><br>
+    <label>Password: <input type="password" id="password" required></label><br><br>
+    <label>Email: <input type="email" id="emailId" required></label><br><br>
+    <label>Role:
+        <select id="roleId" required>
+            <option value="1">SuperAdmin</option>
+            <option value="2">SubAdmin</option>
+            <option value="3">Candidate</option>
+            <option value="4">Voter</option>
+        </select>
+    </label><br><br>
+
+    <button type="submit">Register</button>
+</form>
+
+<br>
+
+<a href="/pages/openUsersPage">
+    <button type="button">Users</button>
+</a>
+
+<hr>
+<h3>Response:</h3>
+<pre id="responseBox"></pre>
+
+<script>
+    document.getElementById("userForm").addEventListener("submit", function(event) {
+        event.preventDefault(); // prevent page reload
+
+        const userDTO = {
+            fullName: document.getElementById("fullName").value,
+            dateOfBirth: document.getElementById("dateOfBirth").value,
+            gender: document.getElementById("gender").value,
+            username: document.getElementById("username").value,
+            password: document.getElementById("password").value,
+            emailId: document.getElementById("emailId").value,
+            roleId: parseInt(document.getElementById("roleId").value)
+        };
+
+        fetch("/api/users", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(userDTO)
+        })
+        .then(res => res.json())
+        .then(data => {
+            document.getElementById("responseBox").textContent = JSON.stringify(data, null, 2);
+        })
+        .catch(err => {
+            document.getElementById("responseBox").textContent = "Error: " + err;
+        });
+    });
+</script>
+
+</body>
+</html>

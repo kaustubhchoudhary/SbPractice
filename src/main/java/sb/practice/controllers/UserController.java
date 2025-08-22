@@ -59,11 +59,11 @@ public class UserController {
     }
 
     @GetMapping
-    public ResponseEntity<ApiResponseDTO<List<User>>> getAllUsers() {
-        List<User> users = userService.getAllUsers();
+    public ResponseEntity<ApiResponseDTO<List<UserResponseDTO>>> getAllUsers() {
+        List<UserResponseDTO> userResponseDTO = userService.getAllUsers();
         return ResponseEntity.ok(new ApiResponseDTO<>(200,
                 "All users retrieved successfully",
-                users));
+                userResponseDTO));
     }
 
     @DeleteMapping("/{userId}")
