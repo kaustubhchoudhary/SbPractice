@@ -18,5 +18,4 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     @Query("SELECT new sb.practice.dto.UserLoginDTO(u.username, u.passwordSalt, u.passwordHash, r.roleName) FROM User u JOIN u.role r WHERE u.username = :username")
     Optional<UserLoginDTO> findLoginDetailsByUsername(@Param("username") String username);
 
-
 }
